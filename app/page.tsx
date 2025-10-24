@@ -1,6 +1,11 @@
 
+'use client';
+
 import FeatureCard from "@/components/FeatureCard";
 import Header from "@/components/Header";
+import PrivacyPolicy from "@/components/modals/PrivacyPolicy";
+import Support from "@/components/modals/Support";
+import TermsOfService from "@/components/modals/TermsOfService";
 import { Button } from "@/components/ui/button";
 import { SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
@@ -11,12 +16,15 @@ import {
   Video,
   Zap,
 } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [modal, setModal] = useState<string | null>(null);
   return (
 
     <div>
       <Header />
+
       <main
         className="flex-1 flex flex-col items-center px-4 py-16 sm:px-6 text-center gap-20"
       >
@@ -133,7 +141,7 @@ export default function Home() {
 
 
           {/* Enhanced CTA Section */}
-          <div className="w-full max-w-4xl">
+          <div className="w-full max-w-4xl pt-10">
             <div className="rounded-2xl border bg-gradient-to-br from-primary/5 to-primary/10 p-12 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
                 Ready to transform your conversations?
@@ -170,6 +178,52 @@ export default function Home() {
         </div>
       </main>
 
+      <footer className="border-t bg-muted/30">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div>
+              <span className="text-xl font-bold tracking-tight">Vortix</span>
+              <p className="text-sm text-muted-foreground mt-1">
+                The future of communication
+              </p>
+            </div>
+
+            <div className="flex items-center gap-8">
+              <button
+                onClick={() => setModal("privacy")}
+                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => setModal("terms")}
+                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Terms of Service
+              </button>
+              <button
+                onClick={() => setModal("support")}
+                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Support
+              </button>
+            </div>
+          </div>
+
+          <div className="border-t mt-8 pt-6 text-center">
+            <p className="text-xs text-muted-foreground">
+              2025 Vortix.
+              <br />
+              All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Modals */}
+      {modal === "privacy" && <PrivacyPolicy onClose={() => setModal(null)} />}
+      {modal === "terms" && <TermsOfService onClose={() => setModal(null)} />}
+      {modal === "support" && <Support onClose={() => setModal(null)} />}
     </div>
   );
 }
