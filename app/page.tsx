@@ -7,8 +7,9 @@ import PrivacyPolicy from "@/components/modals/PrivacyPolicy";
 import Support from "@/components/modals/Support";
 import TermsOfService from "@/components/modals/TermsOfService";
 import { Button } from "@/components/ui/button";
-import { SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
+  ArrowUp,
   MessageCircle,
   Paperclip,
   Shield,
@@ -16,10 +17,27 @@ import {
   Video,
   Zap,
 } from "lucide-react";
-import { useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [modal, setModal] = useState<string | null>(null);
+  const [showArrow, setShowArrow] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowArrow(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
 
     <div>
@@ -48,11 +66,16 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6">
             <SignedOut>
               <SignInButton mode="modal">
-                <Button size="lg" className="text-lg px-8 py-6 h-auto">
+                <Button size="lg" className="text-lg cursor-pointer hover:scale-102 transition-all px-8 py-6 h-auto">
                   Start Chatting Free
                 </Button>
               </SignInButton>
             </SignedOut>
+            <SignedIn>
+              <Button size="lg" className="text-lg cursor-pointer hover:scale-102 transition-all px-8 py-6 h-auto">
+                Start Chatting Free
+              </Button>
+            </SignedIn>
           </div>
 
           {/* Social proof */}
@@ -106,39 +129,32 @@ export default function Home() {
               title="Instant Messaging"
               description="Lightning-fast messages with real-time delivery. Chat with friends and colleagues seamlessly."
             />
-
             <FeatureCard
               icon={Video}
               title="HD Video Calls"
               description="Crystal-clear video calls with one click. Perfect quality for personal chats and team meetings."
             />
-
             <FeatureCard
               icon={Shield}
               title="Privacy First"
               description="End-to-end encryption keeps your conversations private. Your data belongs to you, always."
             />
-
             <FeatureCard
               icon={Users}
               title="Group Chats"
               description="Create groups with friends, family, or colleagues. Manage conversations with advanced controls."
             />
-
             <FeatureCard
               icon={Zap}
               title="Lightning Fast"
               description="Optimized for speed and performance. Works seamlessly across all your devices with instant sync."
             />
-
             <FeatureCard
               icon={Paperclip}
               title="File Sharing"
               description="Share files of any type with ease. Supports documents, images, and more with preview and download options."
             />
           </div>
-
-
 
           {/* Enhanced CTA Section */}
           <div className="w-full max-w-4xl pt-10">
@@ -153,11 +169,19 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <SignedOut>
                   <SignUpButton mode="modal">
-                    <Button size="lg" className="text-lg px-8 py-6 h-auto">
+                    <Button size="lg" className="text-lg cursor-pointer hover:scale-102 transition-all px-8 py-6 h-auto">
                       Get Started Free
                     </Button>
                   </SignUpButton>
                 </SignedOut>
+                <SignedIn>
+                  <Button
+                    size="lg"
+                    onClick={() => router.push("/dashboard")}
+                    className="text-lg cursor-pointer hover:scale-102 transition-all px-8 py-6 h-auto">
+                    Get Started Free
+                  </Button>
+                </SignedIn>
               </div>
               <div className="flex justify-center flex-col sm:flex-row items-center gap-6 mt-8 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
@@ -181,11 +205,23 @@ export default function Home() {
       <footer className="border-t bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div>
-              <span className="text-xl font-bold tracking-tight">Vortix</span>
-              <p className="text-sm text-muted-foreground mt-1">
-                The future of communication
-              </p>
+            <div
+              className="flex items-center gap-2"
+            >
+              <Image
+                src="/logo.png"
+                alt="vortix logo"
+                width={50}
+                height={50}
+                className="cursor-pointer hover:scale-110 transition-all"
+                onClick={() => router.push("/dashboard")}
+              />
+              <div>
+                <span className="text-xl font-bold tracking-tight">Vortix</span>
+                <p className="text-sm text-muted-foreground mt-1">
+                  The future of communication
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-8">
@@ -209,7 +245,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-
           <div className="border-t mt-8 pt-6 text-center">
             <p className="text-xs text-muted-foreground">
               2025 Vortix.
@@ -218,6 +253,17 @@ export default function Home() {
             </p>
           </div>
         </div>
+
+        {/* Scroll to top button */}
+        {showArrow && (
+          <button
+            onClick={scrollToTop}
+            className="fixed hover:scale-110 cursor-pointer bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </button>
+        )}
       </footer>
 
       {/* Modals */}
