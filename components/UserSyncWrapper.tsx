@@ -62,10 +62,11 @@ function UserSyncWrapper({ children }: { children: React.ReactNode }) {
 
     const disconnectUser = useCallback(async() => {
         try {
-            await streamClient.disconnectUser(user?.id);            
+            await streamClient.disconnectUser(Number(user?.id));
         } catch (err) {
             console.error("Failed to disconnect user:", err);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
