@@ -1,7 +1,9 @@
 'use client';
 
-function SignedInLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+import UserSyncWrapper from "@/components/UserSyncWrapper";
+
+function Layout({ children }: { children: React.ReactNode }) {
+  return <UserSyncWrapper>{children}</UserSyncWrapper>;
 }
 
-export default SignedInLayout;
+export default Layout;
