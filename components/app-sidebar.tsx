@@ -15,6 +15,7 @@ import { UserButton, useUser } from "@clerk/clerk-react";
 import { ChannelFilters, ChannelSort } from "stream-chat";
 import { ChannelList } from "stream-chat-react";
 import { Button } from "./ui/button";
+import NewChatDialog from "./NewChatDialog";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
@@ -51,9 +52,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            <Button className="w-full" variant="outline">
-              Start New Chat
-            </Button>
+            <NewChatDialog>
+              <Button className="w-full" variant="outline">
+                Start New Chat
+              </Button>
+            </NewChatDialog>
+
             {/* Channels List */}
             <ChannelList
               sort={sort}
