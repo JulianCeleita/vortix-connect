@@ -45,12 +45,12 @@ function Dashboard() {
                   >
                     <LogOutIcon className="w-4 h-4" />
                     Leave Chat
-                  </Button>                  
+                  </Button>
                 </div>
-                <MessageList />
-                <div className="sticky bottom-0 w-full">
-                  <MessageInput />
-                </div>
+              </div>
+              <MessageList />
+              <div className="sticky bottom-0 w-full">
+                <MessageInput />
               </div>
             </Window>
           </Channel>

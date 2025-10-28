@@ -11,6 +11,7 @@ import UserSyncWrapper from "@/components/UserSyncWrapper";
 import streamClient from "@/lib/stream";
 import Image from "next/image";
 import { Chat } from "stream-chat-react";
+import "stream-chat-react/dist/css/v2/index.css";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
