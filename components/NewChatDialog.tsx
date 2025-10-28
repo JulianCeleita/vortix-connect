@@ -155,11 +155,13 @@ function NewChatDialog({ children }: { children: React.ReactNode }) {
                         onClick={handleCreateChat}
                         disabled={selectedUsers.length === 0}
                     >
-                        {selectedUsers.length > 1
-                            ? `Create Group Chat (${selectedUsers.length + 1} members)`
-                            : selectedUsers.length === 1
-                                ? "Start Chat"
-                                : "Create Chat"
+                        {selectedUsers.length > 1 && groupName.trim() !== ""
+                            ? `Create Group ${groupName}`
+                            : selectedUsers.length > 1
+                                ? `Create Group Chat (${selectedUsers.length + 1} members)`
+                                : selectedUsers.length === 1
+                                    ? "Start Chat"
+                                    : "Create Chat"
                         }
                     </Button>
                 </DialogFooter>

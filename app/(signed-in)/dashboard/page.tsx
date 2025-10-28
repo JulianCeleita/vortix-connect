@@ -17,8 +17,28 @@ function Dashboard() {
     console.log("Calling now !...");
   }
 
-  const handleLeaveChat = () => {
-    console.log("Leaving chat !...");
+  const handleLeaveChat = async () => {
+    if (!channel || !user?.id) {
+      console.log("No active channel or user");
+      return;
+    }
+
+    // Confirm before leaving
+    const confirm = window.confirm("Are you sure you want to leave the chat?");
+    if (!confirm) return;
+
+    try {
+      // Remove current user from the channel using Stream's removeMembers method
+      await channel.removeMembers([user.id]);
+
+      // Clear the active channel
+      setActiveChannel(undefined);
+
+      // Redirect to dashboard after leaving
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Error leaving chat:", error);
+    } 
   }
 
   return (
