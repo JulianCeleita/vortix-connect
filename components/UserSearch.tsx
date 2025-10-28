@@ -2,12 +2,12 @@
 
 import { Doc } from "@/convex/_generated/dataModel";
 import { useUserSearch } from "@/hooks/useUserSearch";
+import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/clerk-react";
 import { Mail, Search, UserIcon, X } from "lucide-react";
-import { Input } from "./ui/input";
-import { cn } from "@/lib/utils";
-import { InlineSpinner } from "./LoadingSpinner";
 import Image from "next/image";
+import { InlineSpinner } from "./LoadingSpinner";
+import { Input } from "./ui/input";
 
 function UserSearch({
     onSelectUser,

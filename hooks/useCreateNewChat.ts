@@ -8,7 +8,7 @@ export const useCreateNewChat = () => {
     }: {
         members: string[];
         createdBy: string;
-        groupName: string; // Optional group name for groups chats
+        groupName?: string; // Optional group name for groups chats
     }) => {
         const isGroupChat = members.length > 2;
 
@@ -50,9 +50,27 @@ export const useCreateNewChat = () => {
                 members,
                 created_by_id: createdBy,
             };
-        } catch (err) {
-            console.log(err);
-        }
 
+            // For group chats, add group-specific metadata
+            if (isGroupChat) {
+                channelData.name = groupName || `Group Chat (${members.length} members)`;
+            }
+
+            const channel = streamClient.channel(
+                isGroupChat ? "team" : "messaging",
+                channelId,
+                channelData
+            );
+
+            await channel.watch({
+                presence: true,
+            });
+
+            return channel;
+
+        } catch (err) {
+            throw err;
+        }
     };
+    return createNewChat;
 };
