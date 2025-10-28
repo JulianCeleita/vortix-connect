@@ -60,8 +60,8 @@ function NewChatDialog({ children }: { children: React.ReactNode }) {
                 <div className="space-y-4">
                     {/* Search component */}
                     <UserSearch onSelectUser={handleSelectUser}
-                    placeholder="Search for users by name or email..."
-                    className="w-full"/>
+                        placeholder="Search for users by name or email..."
+                        className="w-full" />
                 </div>
             </DialogContent>
         </Dialog>
