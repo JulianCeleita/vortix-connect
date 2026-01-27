@@ -14,7 +14,9 @@ function Dashboard() {
   const { setOpen } = useSidebar();
 
   const handleCall = () => {
-    console.log("Calling now !...");
+    if (!channel) return;
+    router.push(`/dashboard/video-call/${channel.id}`);
+    setOpen(false);
   }
 
   const handleLeaveChat = async () => {
@@ -38,7 +40,7 @@ function Dashboard() {
       router.push("/dashboard");
     } catch (error) {
       console.error("Error leaving chat:", error);
-    } 
+    }
   }
 
   return (
