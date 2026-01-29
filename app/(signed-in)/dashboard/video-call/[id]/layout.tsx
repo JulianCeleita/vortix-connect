@@ -12,6 +12,7 @@ import {
     StreamVideo,
     StreamVideoClient,
 } from "@stream-io/video-react-sdk";
+import '@stream-io/video-react-sdk/dist/css/styles.css';
 import { AlertTriangle, Video } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";

@@ -61,7 +61,7 @@ function VideoCall() {
         )
     }
 
-    if (callingState === CallingState.JOINED) {
+    if (callingState !== CallingState.JOINED) {
         return (
             <StatusCard
                 title="Loading Call..."
@@ -78,7 +78,7 @@ function VideoCall() {
             <div className="flex-1 relative">
                 <SpeakerLayout />
             </div>
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-10">
                 <CallControls onLeave={handleLeave} />
             </div>
 
