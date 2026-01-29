@@ -50,6 +50,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     // Initialize client in useEffect to avoid  side effects during render
     useEffect(() => {
         if (!streamUser) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setClient(null);
             return;
         }
@@ -69,6 +70,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!client || !id) return;
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setError(null);
         const streamCall = client.call("default", id as string);
 
