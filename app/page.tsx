@@ -3,6 +3,7 @@
 
 import FeatureCard from "@/components/FeatureCard";
 import Header from "@/components/Header";
+import Contact from "@/components/modals/Contact";
 import PrivacyPolicy from "@/components/modals/PrivacyPolicy";
 import Support from "@/components/modals/Support";
 import TermsOfService from "@/components/modals/TermsOfService";
@@ -10,9 +11,12 @@ import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import {
   ArrowUp,
+  Github,
+  Mail,
   MessageCircle,
   Paperclip,
   Shield,
+  Twitter,
   Users,
   Video,
   Zap,
@@ -114,7 +118,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+            <h2 id="features" className="text-3xl sm:text-4xl font-bold mb-6">
               Everything you need to stay connected
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -202,59 +206,147 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="border-t bg-muted/30">
+      <footer className="border-t bg-muted/30 mt-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-            <div
-              className="flex items-center gap-2"
-            >
-              <Image
-                src="/logo.png"
-                alt="vortix logo"
-                width={50}
-                height={50}
-                className="cursor-pointer hover:scale-110 transition-all"
-                onClick={() => router.push("/dashboard")}
-              />
-              <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+            {/* Brand */}
+            <div className="space-y-4 sm:col-span-2 lg:col-span-1">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/logo.png"
+                  alt="Vortix logo"
+                  width={40}
+                  height={40}
+                  className="cursor-pointer hover:scale-110 transition-all"
+                  onClick={() => router.push("/dashboard")}
+                />
                 <span className="text-xl font-bold tracking-tight">Vortix</span>
-                <p className="text-sm text-muted-foreground mt-1">
-                  The future of communication
-                </p>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                The modern messaging platform combining lightning-fast chat and crystal-clear video calls in one seamless experience.
+              </p>
+              <div className="flex items-center gap-3 pt-1">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Twitter / X"
+                >
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <button
+                  onClick={() => setModal("contact")}
+                  className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  aria-label="Email us"
+                >
+                  <Mail className="w-5 h-5" />
+                </button>
               </div>
             </div>
 
-            <div className="flex items-center gap-8">
-              <button
-                onClick={() => setModal("privacy")}
-                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Privacy Policy
-              </button>
-              <button
-                onClick={() => setModal("terms")}
-                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Terms of Service
-              </button>
-              <button
-                onClick={() => setModal("support")}
-                className="text-sm cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Support
-              </button>
+            {/* Product */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold uppercase tracking-wider">Product</h4>
+              <ul className="space-y-2">
+                <li>
+                  <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={() => router.push("/dashboard")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    Dashboard
+                  </button>
+                </li>
+                <li>
+                  <span className="text-sm text-muted-foreground flex items-center gap-1.5">
+                    Mobile App
+                    <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">Soon</span>
+                  </span>
+                </li>
+              </ul>
             </div>
+
+            {/* Legal */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold uppercase tracking-wider">Legal</h4>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => setModal("privacy")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    Privacy Policy
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setModal("terms")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    Terms of Service
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Connect */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold uppercase tracking-wider">Connect</h4>
+              <ul className="space-y-2">
+                <li>
+                  <button
+                    onClick={() => setModal("support")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    Help & Support
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setModal("contact")}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    Contact Us
+                  </button>
+                </li>
+                <li>
+                  <a
+                    href="mailto:support@vortix.app"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    support@vortix.app
+                  </a>
+                </li>
+              </ul>
+            </div>
+
           </div>
-          <div className="border-t mt-8 pt-6 text-center">
+
+          <div className="border-t mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
             <p className="text-xs text-muted-foreground">
-              2025 Vortix.
-              <br />
-              All rights reserved.
+              © 2026 Vortix. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Made with ❤️ for better communication
             </p>
           </div>
         </div>
 
-        {/* Scroll to top button */}
         {showArrow && (
           <button
             onClick={scrollToTop}
@@ -270,6 +362,7 @@ export default function Home() {
       {modal === "privacy" && <PrivacyPolicy onClose={() => setModal(null)} />}
       {modal === "terms" && <TermsOfService onClose={() => setModal(null)} />}
       {modal === "support" && <Support onClose={() => setModal(null)} />}
+      {modal === "contact" && <Contact onClose={() => setModal(null)} />}
     </div>
   );
 }
