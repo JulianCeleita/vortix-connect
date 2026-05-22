@@ -1,6 +1,6 @@
 # Vortix
 
-![Vortix Connect](./public/vortix-connect1.webp)
+![Vortix Connect](./public/vortix-connect-app.webp)
 
 > The modern messaging platform that combines lightning-fast chat and crystal-clear video calls in one seamless experience.
 
